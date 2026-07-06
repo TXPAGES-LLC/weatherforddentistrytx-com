@@ -1,1 +1,0 @@
-# weatherforddentistrytx-com

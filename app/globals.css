@@ -1,0 +1,187 @@
+@import "tailwindcss" source("..");
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Brand */
+  --brand-primary: #3b82f6;
+  --brand-primary-dark: #2563eb;
+  --brand-primary-light: #eff6ff;
+  --brand-teal: #2ec4b6;
+  --brand-teal-dark: #21a89c;
+  --brand-teal-light: #e6faf9;
+
+  /* Semantic tokens */
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #2ec4b6;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #3b82f6;
+  --radius: 0.5rem;
+
+  /* Trust/success */
+  --trust: #16a34a;
+  --trust-light: #f0fdf4;
+
+  /* Surface */
+  --surface: #f8fafc;
+  --surface-alt: #f1f5f9;
+}
+
+@theme inline {
+  --font-sans: 'Inter', 'Inter Fallback', system-ui, sans-serif;
+  --font-serif: 'Merriweather', 'Georgia', serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-trust: var(--trust);
+  --color-trust-light: var(--trust-light);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-dark: var(--brand-primary-dark);
+  --color-brand-primary-light: var(--brand-primary-light);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-dark: var(--brand-teal-dark);
+  --color-brand-teal-light: var(--brand-teal-light);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 8px);
+}
+
+/* Blog prose styles for feed posts rendered via dangerouslySetInnerHTML */
+.blog-prose {
+  color: #334155;
+  line-height: 1.75;
+  max-width: 65ch;
+}
+.blog-prose h1,
+.blog-prose h2,
+.blog-prose h3,
+.blog-prose h4,
+.blog-prose h5,
+.blog-prose h6 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  line-height: 1.3;
+}
+.blog-prose h1 { font-size: 2rem; }
+.blog-prose h2 { font-size: 1.5rem; }
+.blog-prose h3 { font-size: 1.25rem; }
+.blog-prose h4 { font-size: 1.125rem; }
+.blog-prose p {
+  margin-bottom: 1.4em;
+}
+.blog-prose a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.blog-prose a:hover {
+  color: #1d4ed8;
+}
+.blog-prose strong, .blog-prose b { font-weight: 700; }
+.blog-prose em, .blog-prose i { font-style: italic; }
+.blog-prose ul,
+.blog-prose ol {
+  margin-bottom: 1.4em;
+  padding-left: 1.75em;
+}
+.blog-prose ul { list-style-type: disc; }
+.blog-prose ol { list-style-type: decimal; }
+.blog-prose li { margin-bottom: 0.4em; }
+.blog-prose blockquote {
+  border-left: 4px solid #2ec4b6;
+  padding-left: 1.25em;
+  margin: 1.5em 0;
+  font-style: italic;
+  color: #64748b;
+}
+.blog-prose code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: #f1f5f9;
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+}
+.blog-prose pre {
+  background: #f1f5f9;
+  border-radius: 8px;
+  padding: 1.25em;
+  overflow-x: auto;
+  margin-bottom: 1.4em;
+}
+.blog-prose pre code {
+  background: none;
+  padding: 0;
+}
+.blog-prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1.5em auto;
+  display: block;
+}
+.blog-prose hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 2em 0;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Reserve space for the sticky mobile CTA bar */
+  @media (max-width: 767px) {
+    body {
+      padding-bottom: calc(56px + env(safe-area-inset-bottom));
+    }
+  }
+}

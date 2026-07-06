@@ -1,0 +1,60 @@
+name: Deploy to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - "**"
+    paths-ignore:
+      - "lib/blog/posts.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.repository }}-fleemclemoredds-69c7feae
+  cancel-in-progress: true
+
+env:
+  REGISTRY_NAME: websitesRegistry
+  IMAGE_NAME: fleemclemoredds-69c7feae
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --include=optional --legacy-peer-deps
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Resolve ACR login server
+        run: |
+          LOGIN_SERVER=$(az acr show --name ${{ env.REGISTRY_NAME }} --query loginServer -o tsv)
+          echo "LOGIN_SERVER=$LOGIN_SERVER" >> $GITHUB_ENV
+
+      - name: Log in to ACR
+        run: az acr login --name ${{ env.REGISTRY_NAME }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ github.workspace }}
+          file: ${{ github.workspace }}/Dockerfile
+          push: true
+          tags: |
+            ${{ env.LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+            ${{ env.LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:latest
+
+      - name: Deploy to Container App
+        run: |
+          ACR_USERNAME=$(az acr credential show --name ${{ env.REGISTRY_NAME }} --query username -o tsv)
+          ACR_PASSWORD=$(az acr credential show --name ${{ env.REGISTRY_NAME }} --query 'passwords[0].value' -o tsv)
+          az containerapp up             --name fleemclemoredds-69c7feae             --resource-group Websites             --environment websites-prod             --image ${{ env.LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}             --registry-server ${{ env.LOGIN_SERVER }}             --registry-username $ACR_USERNAME             --registry-password $ACR_PASSWORD             --target-port 3000             --ingress external
