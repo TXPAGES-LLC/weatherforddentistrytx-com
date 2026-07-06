@@ -97,7 +97,7 @@ export default function OGImage() {
               lineHeight: 1.4,
             }}
           >
-            Family &amp; Cosmetic Dentistry in Weatherford, TX
+            Family & Cosmetic Dentistry in Weatherford, TX
           </div>
 
           {/* Trust badges row */}
