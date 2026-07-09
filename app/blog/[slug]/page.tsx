@@ -5,6 +5,7 @@ import SiteHeader from '@/components/site-header'
 import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
 import { fetchBlogFeed, isPublished, type FeedPost } from '@/lib/blog/source'
+import { SITE_URL } from '@/lib/site-config'
 
 const PHONE = '(817) 594-8665'
 const PHONE_HREF = 'tel:+18175948665'
@@ -240,7 +241,7 @@ export async function generateMetadata({
   if (resolved.type === 'feed') {
     const p = resolved.post
     const keywords = p.seo?.keywords?.length ? p.seo.keywords : undefined
-    const canonical = p.seo?.canonicalUrl ?? `https://weatherforddentistrytx.com/blog/${slug}`
+    const canonical = p.seo?.canonicalUrl ?? `${SITE_URL}/blog/${slug}`
     const ogImage = p.seo?.ogImageUrl ?? '/opengraph-image'
     return {
       title: p.seo?.metaTitle ?? `${p.title} | F. Lee McLemore, DDS`,
@@ -258,7 +259,7 @@ export async function generateMetadata({
   }
 
   const p = resolved.post
-  const canonical = `https://weatherforddentistrytx.com/blog/${slug}`
+  const canonical = `${SITE_URL}/blog/${slug}`
   return {
     title: `${p.title} | F. Lee McLemore, DDS`,
     description: p.metaDescription,
@@ -270,7 +271,7 @@ export async function generateMetadata({
       url: canonical,
       images: [
         p.image
-          ? { url: `https://weatherforddentistrytx.com${p.image.src}`, width: 800, height: 600, alt: p.image.alt }
+          ? { url: `${SITE_URL}${p.image.src}`, width: 800, height: 600, alt: p.image.alt }
           : { url: '/opengraph-image', width: 1200, height: 630 },
       ],
     },

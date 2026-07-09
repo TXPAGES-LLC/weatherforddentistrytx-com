@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { events } from '@/lib/gtag'
 
 const PHONE = '(817) 594-8665'
 const PHONE_HREF = 'tel:+18175948665'
@@ -38,10 +41,11 @@ export default function HeroSection() {
               Compassionate, comprehensive dental care for your entire family in Weatherford, TX. From routine cleanings to cosmetic dentistry, we provide the full range of dental services your family needs&nbsp;— all under one roof.
             </p>
 
-            <div className="flex flex-col xs:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href={PHONE_HREF}
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-semibold text-sm sm:text-base transition-colors bg-blue-500 hover:bg-blue-600 text-white min-h-[44px]"
+                onClick={() => events.phoneCall('hero')}
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-semibold text-sm sm:text-base transition-colors bg-blue-500 hover:bg-blue-600 text-white min-h-[44px] w-full sm:w-auto"
                 aria-label={`Call our office at ${PHONE}`}
               >
                 <PhoneIcon />
@@ -51,7 +55,8 @@ export default function HeroSection() {
                 href="https://maps.google.com/?cid=2341254151701000531"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-semibold text-sm sm:text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30 min-h-[44px]"
+                onClick={() => events.getDirections('hero')}
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-semibold text-sm sm:text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30 min-h-[44px] w-full sm:w-auto"
               >
                 <MapPinIcon />
                 Get Directions

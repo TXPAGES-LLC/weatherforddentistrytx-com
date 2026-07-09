@@ -81,9 +81,16 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://weatherforddentistrytx.com" />
         {/* Preconnect to Google Fonts CDN (loaded by next/font but benefits from early hint) */}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload LCP hero image to reduce Largest Contentful Paint time */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://weatherforddentistrytx.com/wp-content/uploads/2023/12/tooth.png"
+          fetchPriority="high"
+        />
       </head>
-      {/* pb-16 reserves space for the fixed mobile CTA bar on small screens, preventing CLS */}
-      <body className="font-sans antialiased md:pb-0 pb-16">
+      {/* pb-20 reserves space for the fixed mobile CTA bar + safe-area on small screens, preventing CLS */}
+      <body className="font-sans antialiased pb-20 md:pb-0">
         {/* GA4 — loads after page is interactive, does not block render */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

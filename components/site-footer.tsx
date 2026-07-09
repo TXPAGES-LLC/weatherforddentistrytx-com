@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { events } from '@/lib/gtag'
 
 const PHONE = '(817) 594-8665'
 const PHONE_HREF = 'tel:+18175948665'
@@ -21,6 +24,7 @@ export default function SiteFooter() {
             </p>
             <a
               href={PHONE_HREF}
+              onClick={() => events.phoneCall('footer')}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors bg-blue-500 hover:bg-blue-600 text-white"
               aria-label={`Call our office at ${PHONE}`}
             >
@@ -51,7 +55,7 @@ export default function SiteFooter() {
 
           {/* Areas */}
           <div>
-            <h3 className="font-semibold text-sm uppercase tracking-wider text-white/50 mb-4">Areas Served</h3>
+            <h3 className="font-semibold text-sm uppercase tracking-wider text-white/50 mb-4">Service Areas</h3>
             <ul className="space-y-2">
               {[
                 { label: 'Weatherford, TX', href: '/areas/weatherford' },
@@ -79,11 +83,11 @@ export default function SiteFooter() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-white/70">
                 <PhoneIcon />
-                <a href={PHONE_HREF} className="hover:text-white transition-colors">{PHONE}</a>
+                <a href={PHONE_HREF} onClick={() => events.phoneCall('footer_nav')} className="hover:text-white transition-colors">{PHONE}</a>
               </li>
               <li className="flex items-start gap-2 text-sm text-white/70">
                 <EnvelopeIcon />
-                <a href={`mailto:${EMAIL}`} className="hover:text-white transition-colors">{EMAIL}</a>
+                <a href={`mailto:${EMAIL}`} onClick={() => events.emailClick('footer_nav')} className="hover:text-white transition-colors">{EMAIL}</a>
               </li>
               <li className="flex items-start gap-2 text-sm text-white/70">
                 <MapPinIcon />
@@ -91,6 +95,7 @@ export default function SiteFooter() {
                   href="https://maps.google.com/?cid=2341254151701000531"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => events.getDirections('footer_nav')}
                   className="hover:text-white transition-colors"
                 >
                   {ADDRESS}

@@ -1,21 +1,23 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/site-config'
 import Link from 'next/link'
 import SiteHeader from '@/components/site-header'
 import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
 import BlogFilter from '@/components/blog-filter'
+import BlogPhoneCta from '@/components/blog-phone-cta'
 import { fetchBlogFeed, isPublished } from '@/lib/blog/source'
 
 export const metadata: Metadata = {
   title: 'Dental Health Blog | F. Lee McLemore, DDS — Weatherford TX',
   description:
     'Dental tips, oral health guides, and practice updates from F. Lee McLemore, DDS in Weatherford, TX. Topics include preventive care, pediatric dentistry, cosmetic treatments & more.',
-  alternates: { canonical: 'https://weatherforddentistrytx.com/blog' },
+  alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: 'Dental Health Blog | F. Lee McLemore, DDS — Weatherford TX',
     description: 'Oral health tips and dental guidance from Dr. McLemore in Weatherford, TX.',
     type: 'website',
-    url: 'https://weatherforddentistrytx.com/blog',
+    url: `${SITE_URL}/blog`,
     images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Dental Health Blog — F. Lee McLemore, DDS' }],
   },
 }
@@ -98,26 +100,12 @@ export default async function BlogIndexPage() {
               <h2 className="font-serif text-2xl font-bold mb-1">Have a dental question?</h2>
               <p className="text-white/90 text-sm">Our team is happy to answer — just give us a call.</p>
             </div>
-            <a
-              href="tel:+18175948665"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-sm bg-white hover:bg-white/90 transition-colors flex-shrink-0"
-              style={{ color: '#3b82f6' }}
-            >
-              <PhoneIcon /> (817) 594-8665
-            </a>
+            <BlogPhoneCta />
           </div>
         </section>
       </main>
       <SiteFooter />
       <MobileCta />
     </>
-  )
-}
-
-function PhoneIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
   )
 }

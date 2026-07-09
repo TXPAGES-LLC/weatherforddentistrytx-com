@@ -1,7 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import SiteHeader from '@/components/site-header'
 import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
+import { events } from '@/lib/gtag'
 
 export interface CityPageProps {
   city: string
@@ -64,6 +67,7 @@ export default function CityPageTemplate({
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href={PHONE_HREF}
+                onClick={() => events.phoneCall(`city_hero_${city.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base transition-colors bg-blue-500 hover:bg-blue-600 text-white min-h-[44px]"
                 aria-label={`Call ${PHONE}`}
               >
@@ -73,6 +77,7 @@ export default function CityPageTemplate({
                 href="https://maps.google.com/?cid=2341254151701000531"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => events.getDirections(`city_hero_${city.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30"
               >
                 <MapPinIcon /> Get Directions
@@ -117,6 +122,7 @@ export default function CityPageTemplate({
                 href="https://maps.google.com/?cid=2341254151701000531"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => events.getDirections(`city_directions_${city.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold border border-border text-foreground hover:bg-white transition-colors"
               >
                 <MapPinIcon /> Open in Google Maps
@@ -127,11 +133,24 @@ export default function CityPageTemplate({
               style={{ backgroundColor: '#3b82f6' }}
             >
               <h3 className="font-serif font-bold text-xl mb-3">Ready to Schedule?</h3>
-              <p className="text-white/90 text-sm leading-relaxed mb-5">
+              <p className="text-white/90 text-sm leading-relaxed mb-3">
                 Call our Weatherford office to book your appointment. We see patients from {city} and the surrounding area.
               </p>
+              <ul className="mb-5 space-y-1.5">
+                {[
+                  'Serving Parker County since 1991',
+                  'Most major insurance plans accepted',
+                  'New patients & families welcome',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-white/80">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/60 flex-shrink-0" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
               <a
                 href={PHONE_HREF}
+                onClick={() => events.phoneCall(`city_cta_${city.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-lg font-semibold text-sm bg-white hover:bg-white/90 transition-colors"
                 style={{ color: '#3b82f6' }}
                 aria-label={`Call ${PHONE} to book an appointment`}
@@ -143,6 +162,7 @@ export default function CityPageTemplate({
                 href="https://maps.google.com/?cid=2341254151701000531"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => events.getDirections(`city_cta_map_${city.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="flex items-center justify-center gap-1.5 w-full text-xs text-white/70 hover:text-white transition-colors mt-1"
               >
                 <MapPinIcon /> 610 Eureka St, Weatherford TX 76086
@@ -159,15 +179,16 @@ export default function CityPageTemplate({
                 Other Communities We Serve
               </h2>
               <div className="flex flex-wrap gap-3">
-                {nearbyAreas.map((area) => (
-                  <Link
-                    key={area.href}
-                    href={area.href}
-                    className="px-4 py-2 rounded-lg text-sm font-medium border border-border bg-surface text-foreground hover:border-primary hover:text-primary transition-colors"
-                  >
-                    {area.label}
-                  </Link>
-                ))}
+              {nearbyAreas.map((area) => (
+                <Link
+                  key={area.href}
+                  href={area.href}
+                  className="px-4 py-2 rounded-lg text-sm font-medium border border-border bg-surface text-foreground hover:border-primary hover:text-primary transition-colors"
+                  aria-label={`Dentist serving ${area.label}`}
+                >
+                  Dentist near {area.label}
+                </Link>
+              ))}
               </div>
             </div>
           </section>

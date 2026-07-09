@@ -80,7 +80,7 @@ export default function GeneralDentistryPage() {
           'Over 30 years of experience serving Weatherford families',
           'Gentle, patient-centered approach for anxious patients',
           'Accepting new patients and most major dental insurance',
-          'Convenient office hours Monday through Friday',
+          'Convenient office hours Monday through Thursday',
           'Full-service practice — your whole family under one roof',
         ],
       }}

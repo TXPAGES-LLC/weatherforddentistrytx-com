@@ -1,3 +1,7 @@
+'use client'
+
+import { events } from '@/lib/gtag'
+
 export default function TrustSection() {
   return (
     <section className="py-16 md:py-20 bg-white" aria-labelledby="trust-heading">
@@ -6,9 +10,9 @@ export default function TrustSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-12 sm:mb-16">
           {[
             { value: '35+', label: 'Years Serving Weatherford' },
-            { value: '100%', label: 'Satisfaction Commitment' },
-            { value: '5', label: 'Dental Specialties' },
-            { value: 'All Ages', label: 'Patients Welcome' },
+            { value: '5', label: 'Dental Specialties Offered' },
+            { value: 'Most', label: 'Insurance Plans Accepted' },
+            { value: 'All Ages', label: 'New Patients Welcome' },
           ].map((stat) => (
             <div key={stat.label} className="text-center p-4 sm:p-5 rounded-xl bg-surface border border-border">
               <div className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl mb-1" style={{ color: '#3b82f6' }}>
@@ -109,7 +113,7 @@ export default function TrustSection() {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">610 Eureka St, Weatherford TX</p>
-                  <a href="tel:+18175948665" className="text-xs text-primary hover:underline font-medium">(817) 594-8665 &middot; Mon–Thu 8am–5pm</a>
+                  <a href="tel:+18175948665" onClick={() => events.phoneCall('trust_section')} className="text-xs text-primary hover:underline font-medium">(817) 594-8665 &middot; Mon–Thu 8am–5pm</a>
                 </div>
               </div>
             </div>

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { events } from '@/lib/gtag'
 
 const services = [
   {
@@ -91,7 +92,7 @@ export default function ServicesSection() {
                   ))}
                 </div>
                 <span className="text-sm font-semibold flex items-center gap-1 transition-colors" style={{ color: '#3b82f6' }}>
-                  Learn more
+                  {service.title} in Weatherford
                   <ArrowIcon />
                 </span>
               </Link>
@@ -110,15 +111,13 @@ export default function ServicesSection() {
               </p>
             </div>
             <a
-              href="tel:+18175964040"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-colors"
-              style={{ backgroundColor: '#3b82f6', color: '#ffffff' }}
-              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#2563eb')}
-              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#3b82f6')}
-              aria-label="Call (817) 596-4040 to schedule an appointment"
+              href="tel:+18175948665"
+              onClick={() => events.phoneCall('services_section_cta')}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-semibold transition-colors bg-blue-500 hover:bg-blue-600 text-white"
+              aria-label="Call (817) 594-8665 to schedule a dental appointment"
             >
               <PhoneIcon />
-              (817) 596-4040
+              Call (817) 594-8665
             </a>
           </div>
         </div>

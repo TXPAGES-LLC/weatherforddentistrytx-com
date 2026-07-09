@@ -108,7 +108,7 @@ export default function ContactPageClient() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-2">Email</h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground break-all">
                     <a
                       href="mailto:leemclemoredds@sbcglobal.net"
                       onClick={() => events.emailClick('contact_page')}
@@ -149,18 +149,19 @@ export default function ContactPageClient() {
             </h2>
 
             <div className="grid sm:grid-cols-2 gap-4">
-              <Link
-                href="/services/general-dentistry"
+              <a
+                href="tel:+18175948665"
+                onClick={() => events.phoneCall('contact_quick_link')}
                 className="flex items-start gap-3 p-5 rounded-lg bg-white border border-border hover:border-primary hover:shadow-sm transition-all group"
               >
                 <span className="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: '#eff6ff' }}>
                   <CheckIcon />
                 </span>
                 <div>
-                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">Schedule an Appointment</h3>
-                  <p className="text-sm text-muted-foreground mt-1">Call us to book your visit at a time that works for you.</p>
+                  <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">Call to Schedule an Appointment</h3>
+                  <p className="text-sm text-muted-foreground mt-1">(817) 594-8665 &middot; Mon–Thu 8am–5pm</p>
                 </div>
-              </Link>
+              </a>
 
               <Link
                 href="/services/general-dentistry"

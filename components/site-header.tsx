@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { events } from '@/lib/gtag'
 
 const PHONE = '(817) 594-8665'
 const PHONE_HREF = 'tel:+18175948665'
@@ -107,7 +108,7 @@ export default function SiteHeader() {
                   aria-expanded={areasOpen}
                   aria-haspopup="true"
                 >
-                  Areas Served
+                  Service Areas
                   <ChevronDownIcon />
                 </button>
                 {areasOpen && (
@@ -143,6 +144,7 @@ export default function SiteHeader() {
 
               <a
                 href={PHONE_HREF}
+                onClick={() => events.phoneCall('header_desktop')}
                 className="ml-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-colors bg-blue-500 hover:bg-blue-600"
                 aria-label={`Call us at ${PHONE}`}
               >
@@ -152,19 +154,23 @@ export default function SiteHeader() {
             </nav>
 
             {/* Mobile: phone + hamburger */}
-            <div className="flex items-center gap-3 lg:hidden">
+            <div className="flex items-center gap-2 lg:hidden">
               <a
                 href={PHONE_HREF}
-                className="flex items-center justify-center w-10 h-10 rounded-lg text-white"
+                onClick={() => events.phoneCall('header_mobile')}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white text-sm font-semibold min-h-[44px]"
                 style={{ backgroundColor: '#3b82f6' }}
                 aria-label={`Call ${PHONE}`}
               >
                 <PhoneIcon />
+                <span className="hidden sm:inline">(817) 594-8665</span>
+                <span className="sm:hidden">Call Now</span>
               </a>
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="flex items-center justify-center w-10 h-10 rounded-lg border border-border text-foreground"
+                className="flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground"
                 aria-expanded={mobileOpen}
+                aria-controls="mobile-menu"
                 aria-label="Toggle navigation menu"
               >
                 {mobileOpen ? <CloseIcon /> : <MenuIcon />}
@@ -173,93 +179,98 @@ export default function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {mobileOpen && (
-          <div className="lg:hidden border-t border-border bg-white" id="mobile-menu">
-            <nav className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
-              <Link href="/" className="px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface" onClick={() => setMobileOpen(false)}>
-                Home
-              </Link>
-              <div>
-                <button
-                  onClick={() => setServicesOpen(!servicesOpen)}
-                  className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface"
-                  aria-expanded={servicesOpen}
-                >
-                  Services <ChevronDownIcon />
-                </button>
-                {servicesOpen && (
-                  <div className="ml-4 mt-1 flex flex-col gap-0.5">
-                    {services.map((s) => (
-                      <Link
-                        key={s.href}
-                        href={s.href}
-                        className="px-3 py-2.5 text-sm text-muted-foreground hover:text-primary rounded-md hover:bg-surface"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {s.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div>
-                <button
-                  onClick={() => setAreasOpen(!areasOpen)}
-                  className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface"
-                  aria-expanded={areasOpen}
-                >
-                  Areas Served <ChevronDownIcon />
-                </button>
-                {areasOpen && (
-                  <div className="ml-4 mt-1 flex flex-col gap-0.5">
-                    {areas.map((a) => (
-                      <Link
-                        key={a.href}
-                        href={a.href}
-                        className="px-3 py-2.5 text-sm text-muted-foreground hover:text-primary rounded-md hover:bg-surface"
-                        onClick={() => setMobileOpen(false)}
-                      >
-                        {a.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-              <Link href="/blog" className="px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface" onClick={() => setMobileOpen(false)}>
-                Blog
-              </Link>
-              <Link href="/contact" className="px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface" onClick={() => setMobileOpen(false)}>
-                Contact
-              </Link>
-              <Link
-                href="/patient-forms"
-                className="flex items-center gap-2 px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface"
-                onClick={() => setMobileOpen(false)}
+        {/* Mobile menu — always in DOM for smooth transition, height animated via max-h */}
+        <div
+          id="mobile-menu"
+          className={`lg:hidden border-t border-border bg-white overflow-hidden transition-all duration-200 ease-in-out ${
+            mobileOpen ? 'max-h-[90vh] opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+          }`}
+          aria-hidden={!mobileOpen}
+        >
+          <nav className="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
+            <Link href="/" className="px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface" onClick={() => setMobileOpen(false)}>
+              Home
+            </Link>
+            <div>
+              <button
+                onClick={() => setServicesOpen(!servicesOpen)}
+                className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface"
+                aria-expanded={servicesOpen}
               >
-                <FileIcon />
-                Patient Forms
-              </Link>
-              <div className="mt-3 pt-3 border-t border-border flex flex-col gap-2">
-                <a
-                  href={PHONE_HREF}
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-semibold text-white"
-                  style={{ backgroundColor: '#3b82f6' }}
-                >
-                  <PhoneIcon /> Call {PHONE}
-                </a>
-                <a
-                  href="https://maps.google.com/?cid=2341254151701000531"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-semibold border border-border text-foreground hover:bg-surface"
-                >
-                  <MapPinIcon /> Get Directions
-                </a>
-              </div>
-            </nav>
-          </div>
-        )}
+                Services <ChevronDownIcon />
+              </button>
+              {servicesOpen && (
+                <div className="ml-4 mt-1 flex flex-col gap-0.5">
+                  {services.map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      className="px-3 py-2.5 text-sm text-muted-foreground hover:text-primary rounded-md hover:bg-surface"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {s.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div>
+              <button
+                onClick={() => setAreasOpen(!areasOpen)}
+                className="flex items-center justify-between w-full px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface"
+                aria-expanded={areasOpen}
+              >
+                Service Areas <ChevronDownIcon />
+              </button>
+              {areasOpen && (
+                <div className="ml-4 mt-1 flex flex-col gap-0.5">
+                  {areas.map((a) => (
+                    <Link
+                      key={a.href}
+                      href={a.href}
+                      className="px-3 py-2.5 text-sm text-muted-foreground hover:text-primary rounded-md hover:bg-surface"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {a.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+            <Link href="/blog" className="px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface" onClick={() => setMobileOpen(false)}>
+              Blog
+            </Link>
+            <Link href="/contact" className="px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface" onClick={() => setMobileOpen(false)}>
+              Contact
+            </Link>
+            <Link
+              href="/patient-forms"
+              className="flex items-center gap-2 px-3 py-3 text-sm font-medium text-foreground hover:text-primary rounded-md hover:bg-surface"
+              onClick={() => setMobileOpen(false)}
+            >
+              <FileIcon />
+              Patient Forms
+            </Link>
+            <div className="mt-3 pt-3 border-t border-border flex flex-col gap-2">
+              <a
+                href={PHONE_HREF}
+                onClick={() => events.phoneCall('mobile_menu')}
+                className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-lg text-sm font-semibold text-white min-h-[44px]"
+                style={{ backgroundColor: '#3b82f6' }}
+              >
+                <PhoneIcon /> Call {PHONE}
+              </a>
+              <a
+                href="https://maps.google.com/?cid=2341254151701000531"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 py-3.5 px-4 rounded-lg text-sm font-semibold border border-border text-foreground hover:bg-surface min-h-[44px]"
+              >
+                <MapPinIcon /> Get Directions
+              </a>
+            </div>
+          </nav>
+        </div>
       </header>
     </>
   )

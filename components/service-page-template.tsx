@@ -1,7 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import SiteHeader from '@/components/site-header'
 import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
+import { events } from '@/lib/gtag'
 
 export interface ServiceItem {
   title: string
@@ -70,6 +73,7 @@ export default function ServicePageTemplate({
             <div className="flex flex-col sm:flex-row gap-3">
               <a
                 href={PHONE_HREF}
+                onClick={() => events.phoneCall(`service_hero_${title.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base transition-colors bg-blue-500 hover:bg-blue-600 text-white min-h-[44px]"
                 aria-label={`Call ${PHONE} to schedule a ${title} appointment`}
               >
@@ -79,6 +83,7 @@ export default function ServicePageTemplate({
                 href="https://maps.google.com/?cid=2341254151701000531"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => events.getDirections(`service_hero_${title.toLowerCase().replace(/\s+/g, '_')}`)}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30"
               >
                 <MapPinIcon /> Get Directions
@@ -136,10 +141,23 @@ export default function ServicePageTemplate({
                 <p className="text-white/90 text-sm leading-relaxed">
                   Call our Weatherford office to book your visit with Dr. F. Lee McLemore. New patients are always welcome.
                 </p>
+                <ul className="mt-3 space-y-1.5">
+                  {[
+                    'Serving Parker County since 1991',
+                    'Most major insurance plans accepted',
+                    'New patients &amp; families welcome',
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-xs text-white/80">
+                      <span className="w-1.5 h-1.5 rounded-full bg-white/60 flex-shrink-0" aria-hidden="true" />
+                      <span dangerouslySetInnerHTML={{ __html: item }} />
+                    </li>
+                  ))}
+                </ul>
               </div>
               <div className="space-y-3">
                 <a
                   href={PHONE_HREF}
+                  onClick={() => events.phoneCall(`service_cta_${title.toLowerCase().replace(/\s+/g, '_')}`)}
                   className="flex items-center justify-center gap-2 w-full py-3 px-5 rounded-lg font-semibold text-sm bg-white transition-colors hover:bg-white/90"
                   style={{ color: '#3b82f6' }}
                   aria-label={`Call ${PHONE}`}
@@ -151,6 +169,7 @@ export default function ServicePageTemplate({
                   href="https://maps.google.com/?cid=2341254151701000531"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => events.getDirections(`service_cta_${title.toLowerCase().replace(/\s+/g, '_')}`)}
                   className="flex items-center justify-center gap-1.5 w-full text-xs text-white/80 hover:text-white transition-colors"
                 >
                   <MapPinIcon /> 610 Eureka St, Weatherford TX 76086
@@ -183,7 +202,7 @@ export default function ServicePageTemplate({
         <section className="py-14 md:py-20 bg-surface" aria-labelledby="related-heading">
           <div className="max-w-4xl mx-auto px-4">
             <h2 id="related-heading" className="font-serif text-xl font-bold text-foreground mb-6">
-              Explore Our Other Services
+              Related Dental Services at Our Weatherford Office
             </h2>
             <div className="flex flex-wrap gap-3">
               {relatedServices.map((svc) => (
@@ -191,8 +210,9 @@ export default function ServicePageTemplate({
                   key={svc.href}
                   href={svc.href}
                   className="px-4 py-2 rounded-lg text-sm font-medium border border-border bg-white text-foreground hover:border-primary hover:text-primary transition-colors"
+                  aria-label={`${svc.label} in Weatherford, TX`}
                 >
-                  {svc.label}
+                  {svc.label} in Weatherford
                 </Link>
               ))}
             </div>
