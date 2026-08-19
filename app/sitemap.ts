@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next'
 import { fetchBlogFeed, isPublished } from '@/lib/blog/source'
+import { SITE_URL } from '@/lib/site-config'
 
-const BASE = 'https://weatherforddentistrytx.com'
+const BASE = SITE_URL
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch live blog posts for dynamic slug entries
@@ -16,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE,                                           lastModified: new Date('2026-06-01'), changeFrequency: 'weekly',  priority: 1.0 },
+    { url: `${BASE}/`,                                     lastModified: new Date('2026-06-01'), changeFrequency: 'weekly',  priority: 1.0 },
     { url: `${BASE}/contact`,                             lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/patient-forms`,                       lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/blog`,                                lastModified: new Date('2026-06-01'), changeFrequency: 'weekly',  priority: 0.9 },
@@ -36,8 +37,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/areas/cresson`,                       lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/areas/granbury`,                      lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/areas/stephenville`,                  lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
-    // Blog posts with real content
-    { url: `${BASE}/blog/child-needs-braces-stephenville`, lastModified: new Date('2026-05-01'), changeFrequency: 'monthly', priority: 0.7 },
+    // Blog posts with real content (hardcoded)
+    { url: `${BASE}/blog/child-needs-braces-stephenville`,      lastModified: new Date('2026-05-01'), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/blog/how-often-should-you-visit-the-dentist`, lastModified: new Date('2025-04-01'), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/blog/pediatric-dentistry-weatherford-tx`,   lastModified: new Date('2025-03-01'), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/blog/cosmetic-dentistry-options-weatherford`, lastModified: new Date('2025-02-01'), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/blog/gum-disease-signs-weatherford`,        lastModified: new Date('2025-01-01'), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/blog/dental-care-seniors-weatherford-tx`,   lastModified: new Date('2024-12-01'), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/blog/special-needs-dentistry-weatherford`, lastModified: new Date('2024-11-01'), changeFrequency: 'monthly', priority: 0.6 },
   ]
 
   const feedBlogPages: MetadataRoute.Sitemap = feedSlugs.map((p) => ({

@@ -16,6 +16,13 @@ export interface RelatedService {
   href: string
 }
 
+export interface ServiceImage {
+  src: string
+  alt: string
+  width: number
+  height: number
+}
+
 export interface ServicePageProps {
   title: string
   headline: string
@@ -30,6 +37,8 @@ export interface ServicePageProps {
   relatedServices: RelatedService[]
   faqItems?: { question: string; answer: string }[]
   structuredDataType?: string
+  heroImage?: ServiceImage
+  secondaryImage?: ServiceImage
 }
 
 const PHONE = '(817) 594-8665'
@@ -43,6 +52,8 @@ export default function ServicePageTemplate({
   whySection,
   relatedServices,
   faqItems,
+  heroImage,
+  secondaryImage,
 }: ServicePageProps) {
   return (
     <>
@@ -54,7 +65,7 @@ export default function ServicePageTemplate({
           className="py-14 md:py-20 text-white"
           aria-labelledby="service-h1"
         >
-          <div className="max-w-4xl mx-auto px-4">
+          <div className={heroImage ? 'max-w-6xl mx-auto px-4' : 'max-w-4xl mx-auto px-4'}>
             <nav aria-label="Breadcrumb" className="mb-4">
               <ol className="flex items-center gap-2 text-white/70 text-sm">
                 <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
@@ -64,33 +75,63 @@ export default function ServicePageTemplate({
                 <li className="text-white font-medium" aria-current="page">{title}</li>
               </ol>
             </nav>
-            <h1 id="service-h1" className="font-serif text-4xl md:text-5xl font-bold text-balance mb-5">
-              {headline}
-            </h1>
-            <p className="text-white/90 text-lg leading-relaxed max-w-2xl text-pretty mb-8">
-              {heroText}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a
-                href={PHONE_HREF}
-                onClick={() => events.phoneCall(`service_hero_${title.toLowerCase().replace(/\s+/g, '_')}`)}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base transition-colors bg-blue-500 hover:bg-blue-600 text-white min-h-[44px]"
-                aria-label={`Call ${PHONE} to schedule a ${title} appointment`}
-              >
-                <PhoneIcon /> Call {PHONE}
-              </a>
-              <a
-                href="https://maps.google.com/?cid=2341254151701000531"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => events.getDirections(`service_hero_${title.toLowerCase().replace(/\s+/g, '_')}`)}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30"
-              >
-                <MapPinIcon /> Get Directions
-              </a>
+            <div className={heroImage ? 'grid md:grid-cols-2 gap-8 lg:gap-12 items-center' : ''}>
+              <div>
+                <h1 id="service-h1" className="font-serif text-4xl md:text-5xl font-bold text-balance mb-5">
+                  {headline}
+                </h1>
+                <p className="text-white/90 text-lg leading-relaxed max-w-2xl text-pretty mb-8">
+                  {heroText}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={PHONE_HREF}
+                    onClick={() => events.phoneCall(`service_hero_${title.toLowerCase().replace(/\s+/g, '_')}`)}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base transition-colors bg-blue-500 hover:bg-blue-600 text-white min-h-[44px]"
+                    aria-label={`Call ${PHONE} to schedule a ${title} appointment`}
+                  >
+                    <PhoneIcon /> Call {PHONE}
+                  </a>
+                  <a
+                    href="https://maps.google.com/?cid=2341254151701000531"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => events.getDirections(`service_hero_${title.toLowerCase().replace(/\s+/g, '_')}`)}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30"
+                  >
+                    <MapPinIcon /> Get Directions
+                  </a>
+                </div>
+              </div>
+              {heroImage && (
+                <img
+                  src={heroImage.src || "/placeholder.svg"}
+                  alt={heroImage.alt}
+                  width={heroImage.width}
+                  height={heroImage.height}
+                  loading="eager"
+                  fetchPriority="high"
+                  className="w-full aspect-[4/3] rounded-2xl object-cover shadow-xl border border-white/20"
+                />
+              )}
             </div>
           </div>
         </section>
+
+        {secondaryImage && (
+          <section className="py-10 md:py-14 bg-white" aria-hidden="false">
+            <div className="max-w-4xl mx-auto px-4">
+              <img
+                src={secondaryImage.src || "/placeholder.svg"}
+                alt={secondaryImage.alt}
+                width={secondaryImage.width}
+                height={secondaryImage.height}
+                loading="lazy"
+                className="w-full max-h-[420px] rounded-2xl object-cover border border-border"
+              />
+            </div>
+          </section>
+        )}
 
         {/* Services list */}
         <section className="py-14 md:py-20 bg-white" aria-labelledby="services-list-heading">

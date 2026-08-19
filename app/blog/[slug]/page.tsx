@@ -6,6 +6,7 @@ import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
 import { fetchBlogFeed, isPublished, type FeedPost } from '@/lib/blog/source'
 import { SITE_URL } from '@/lib/site-config'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 const PHONE = '(817) 594-8665'
 const PHONE_HREF = 'tel:+18175948665'
@@ -165,7 +166,7 @@ const HARDCODED: Record<string, HardcodedPost> = {
     ],
     cta: "If you notice any signs of gum disease, don't wait. Early treatment prevents serious damage. Call us today.",
     serviceLink: { href: '/services/general-dentistry', label: 'Learn about General Dentistry' },
-    relatedPosts: ['how-often-should-you-visit-the-dentist', 'dental-care-seniors-weatherford-tx'],
+    relatedPosts: ['how-often-should-you-visit-the-dentist', 'dental-care-seniors-weatherford-tx', 'special-needs-dentistry-weatherford'],
   },
 
   'dental-care-seniors-weatherford-tx': {
@@ -184,7 +185,7 @@ const HARDCODED: Record<string, HardcodedPost> = {
     ],
     cta: "Concerned about your changing dental health? Schedule a geriatric dental exam with Dr. McLemore. We make appointments comfortable for seniors.",
     serviceLink: { href: '/services/general-dentistry', label: 'Learn about General Dentistry' },
-    relatedPosts: ['how-often-should-you-visit-the-dentist', 'gum-disease-signs-weatherford'],
+    relatedPosts: ['how-often-should-you-visit-the-dentist', 'gum-disease-signs-weatherford', 'special-needs-dentistry-weatherford'],
   },
 
   'special-needs-dentistry-weatherford': {
@@ -203,6 +204,10 @@ const HARDCODED: Record<string, HardcodedPost> = {
     ],
     cta: "We're committed to providing quality, respectful dental care for all patients. Call to schedule a special needs dentistry visit.",
     serviceLink: { href: '/services/special-needs-dentistry', label: 'Learn about Special Needs Dentistry' },
+    image: {
+      src: '/special-needs-dental-care-812307.jpg',
+      alt: 'Child receiving gentle special needs dental care in a calming Weatherford, TX dental office',
+    },
     relatedPosts: ['dental-care-seniors-weatherford-tx', 'how-often-should-you-visit-the-dentist'],
   },
 }
@@ -241,8 +246,15 @@ export async function generateMetadata({
   if (resolved.type === 'feed') {
     const p = resolved.post
     const keywords = p.seo?.keywords?.length ? p.seo.keywords : undefined
-    const canonical = p.seo?.canonicalUrl ?? `${SITE_URL}/blog/${slug}`
-    const ogImage = p.seo?.ogImageUrl ?? '/opengraph-image'
+    // The canonical URL is always self-referencing to this page's own route.
+    // The feed's stored `seo.canonicalUrl` is migrated data from the old CMS
+    // and frequently points to a different, unrelated (and often now-404)
+    // permalink, so it must never be trusted here — using it would tell
+    // search engines this page's canonical version lives at a dead URL.
+    const canonical = `${SITE_URL}/blog/${slug}`
+    // `ogImageUrl` comes back as an empty string (not undefined) for every
+    // feed post, so `??` never falls through — check truthiness instead.
+    const ogImage = p.seo?.ogImageUrl || '/opengraph-image'
     return {
       title: p.seo?.metaTitle ?? `${p.title} | F. Lee McLemore, DDS`,
       description: p.seo?.metaDescription ?? p.excerpt,
@@ -304,8 +316,17 @@ function FeedPostPage({ post }: { post: FeedPost }) {
   })
   const category = post.categories?.[0] ?? post.tags?.[0] ?? 'General'
 
+  const canonical = `${SITE_URL}/blog/${post.slug}`
+
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Blog', url: `${SITE_URL}/blog` },
+          { name: category, url: canonical },
+        ]}
+      />
       <SiteHeader />
       <main id="main-content">
         {/* Hero */}
@@ -402,8 +423,17 @@ function HardcodedPostPage({ post }: { post: HardcodedPost }) {
     .map((s) => allHardcoded.find((p) => p.slug === s))
     .filter(Boolean) as HardcodedPost[]
 
+  const canonical = `${SITE_URL}/blog/${post.slug}`
+
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Blog', url: `${SITE_URL}/blog` },
+          { name: post.category, url: canonical },
+        ]}
+      />
       <SiteHeader />
       <main id="main-content">
         {/* Hero */}

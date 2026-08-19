@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ServicePageTemplate from '@/components/service-page-template'
+import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/structured-data'
 import { SITE_URL } from '@/lib/site-config'
 
 export const metadata: Metadata = {
@@ -19,13 +20,32 @@ export const metadata: Metadata = {
 const relatedServices = [
   { label: 'Cosmetic Dentistry', href: '/services/cosmetic-dentistry' },
   { label: 'Pediatric Dentistry', href: '/services/pediatric-dentistry' },
-  { label: 'Geriatric Dentistry', href: '/services/geriatric-dentistry' },
+  { label: 'Senior Dental Care', href: '/services/geriatric-dentistry' },
   { label: 'Special Needs Dentistry', href: '/services/special-needs-dentistry' },
 ]
 
 export default function GeneralDentistryPage() {
   return (
-    <ServicePageTemplate
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Services', url: `${SITE_URL}/services/general-dentistry` },
+          { name: 'General Dentistry', url: `${SITE_URL}/services/general-dentistry` },
+        ]}
+      />
+      <ServiceJsonLd
+        name="General Dentistry"
+        description="Exams, cleanings, fillings, root canals & more from Dr. F. Lee McLemore, DDS in Weatherford, TX."
+        url={`${SITE_URL}/services/general-dentistry`}
+      />
+      <ServicePageTemplate
+      heroImage={{
+        src: '/general-dentistry.png',
+        alt: 'Dentist performing a general dentistry procedure for a patient in Weatherford, TX',
+        width: 1200,
+        height: 900,
+      }}
       title="General Dentistry"
       headline="General Dentistry in Weatherford, TX"
       metaDescription="Comprehensive general dental care for your entire family in Weatherford, TX."
@@ -102,6 +122,7 @@ export default function GeneralDentistryPage() {
             'We accept most major dental insurance plans. Please call our office and a team member will be happy to verify your coverage.',
         },
       ]}
-    />
+      />
+    </>
   )
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/site-config'
 import SpringtownPage from '@/components/areas/springtown-page'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist Near Springtown TX | F. Lee McLemore, DDS — Weatherford',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <SpringtownPage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Springtown', url: `${SITE_URL}/areas/springtown` },
+        ]}
+      />
+      <SpringtownPage />
+    </>
+  )
 }

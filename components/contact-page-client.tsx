@@ -141,6 +141,28 @@ export default function ContactPageClient() {
           </div>
         </section>
 
+        {/* Map */}
+        <section className="pb-14 md:pb-20 bg-white" aria-labelledby="map-heading">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 id="map-heading" className="font-serif text-2xl md:text-3xl font-bold text-foreground text-balance mb-6">
+              Find Us
+            </h2>
+            <div className="aspect-[4/3] sm:aspect-video w-full overflow-hidden rounded-lg border border-border">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4015.356524858435!2d-97.7881532!3d32.749885299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8651fe0106ab6b67%3A0x207dce3f190bf153!2sF%20Lee%20McLemore%20DDS!5e1!3m2!1sen!2sus!4v1787170360433!5m2!1sen!2sus"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="Map to F. Lee McLemore, DDS at 610 Eureka St, Weatherford, TX 76086"
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* Quick links */}
         <section className="py-14 md:py-20 bg-surface" aria-labelledby="quick-links-heading">
           <div className="max-w-4xl mx-auto px-4">

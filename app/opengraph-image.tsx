@@ -1,11 +1,15 @@
 import { ImageResponse } from 'next/og'
+import fs from 'fs'
+import path from 'path'
 
-export const runtime = 'edge'
 export const alt = 'F. Lee McLemore, DDS — Dentist in Weatherford TX'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
 export default function OGImage() {
+  const logoBuffer = fs.readFileSync(path.join(process.cwd(), 'public', 'gbp-logo.png'))
+  const logoSrc = `data:image/png;base64,${logoBuffer.toString('base64')}`
+
   return new ImageResponse(
     (
       <div
@@ -59,19 +63,18 @@ export default function OGImage() {
             position: 'relative',
           }}
         >
-          {/* Tooth icon SVG */}
-          <svg
-            width="64"
-            height="64"
-            viewBox="0 0 32 32"
-            style={{ marginBottom: '20px' }}
-          >
-            <circle cx="16" cy="16" r="16" fill="#2ec4b6" />
-            <path
-              d="M10 10 C10 7 12 6 14 7 C15 7.5 15.5 8 16 8 C16.5 8 17 7.5 18 7 C20 6 22 7 22 10 C22 13 21 14 21 17 C21 19.5 20.5 21 19.5 21 C18.5 21 18 19 17 17.5 C16.5 16.5 15.5 16.5 15 17.5 C14 19 13.5 21 12.5 21 C11.5 21 11 19.5 11 17 C11 14 10 13 10 10Z"
-              fill="white"
-            />
-          </svg>
+          {/* Official practice logo mark */}
+          <img
+            src={logoSrc}
+            width={72}
+            height={72}
+            style={{
+              width: '72px',
+              height: '72px',
+              borderRadius: '50%',
+              marginBottom: '20px',
+            }}
+          />
 
           {/* Practice name */}
           <div

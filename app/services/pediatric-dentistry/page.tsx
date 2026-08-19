@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ServicePageTemplate from '@/components/service-page-template'
+import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/structured-data'
 import { SITE_URL } from '@/lib/site-config'
 
 export const metadata: Metadata = {
@@ -19,13 +20,38 @@ export const metadata: Metadata = {
 const relatedServices = [
   { label: 'General Dentistry', href: '/services/general-dentistry' },
   { label: 'Cosmetic Dentistry', href: '/services/cosmetic-dentistry' },
-  { label: 'Geriatric Dentistry', href: '/services/geriatric-dentistry' },
+  { label: 'Senior Dental Care', href: '/services/geriatric-dentistry' },
   { label: 'Special Needs Dentistry', href: '/services/special-needs-dentistry' },
 ]
 
 export default function PediatricDentistryPage() {
   return (
-    <ServicePageTemplate
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Services', url: `${SITE_URL}/services/pediatric-dentistry` },
+          { name: 'Pediatric Dentistry', url: `${SITE_URL}/services/pediatric-dentistry` },
+        ]}
+      />
+      <ServiceJsonLd
+        name="Pediatric Dentistry"
+        description="Gentle dental care for kids of all ages in Weatherford, TX. First visits, cleanings, sealants & fluoride from Dr. McLemore."
+        url={`${SITE_URL}/services/pediatric-dentistry`}
+      />
+      <ServicePageTemplate
+      heroImage={{
+        src: '/trusted-pediatric-dental-care.jpg',
+        alt: 'Group of smiling children representing trusted pediatric dental care in Weatherford, TX',
+        width: 1200,
+        height: 900,
+      }}
+      secondaryImage={{
+        src: '/youth-dental-care-21182.jpg',
+        alt: 'Young dental patient smiling during a youth dental care checkup with digital x-ray review',
+        width: 1200,
+        height: 900,
+      }}
       title="Pediatric Dentistry"
       headline="Pediatric Dentistry in Weatherford, TX"
       metaDescription="Gentle, friendly dental care for children in Weatherford, TX."
@@ -92,6 +118,7 @@ export default function PediatricDentistryPage() {
             'Most children benefit from dental exams and cleanings every six months. Some children with higher cavity risk may need to visit more frequently.',
         },
       ]}
-    />
+      />
+    </>
   )
 }

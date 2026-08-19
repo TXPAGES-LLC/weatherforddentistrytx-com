@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/site-config'
 import ContactPageClient from '@/components/contact-page-client'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Contact Us | F. Lee McLemore, DDS — Dentist in Weatherford, TX',
@@ -19,5 +20,15 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  return <ContactPageClient />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Contact', url: `${SITE_URL}/contact` },
+        ]}
+      />
+      <ContactPageClient />
+    </>
+  )
 }

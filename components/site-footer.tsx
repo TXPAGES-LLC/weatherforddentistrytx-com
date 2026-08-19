@@ -16,8 +16,14 @@ export default function SiteFooter() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4" aria-label="F. Lee McLemore DDS - Home">
-              <span className="font-bold text-lg text-white block leading-tight">F. Lee McLemore, DDS</span>
-              <span className="text-sm" style={{ color: '#2ec4b6' }}>Family &amp; Cosmetic Dentistry</span>
+              <img
+                src="/gbp-logo.png"
+                alt="F. Lee McLemore, DDS logo — Family and Cosmetic Dentistry in Weatherford, TX"
+                width={96}
+                height={96}
+                loading="lazy"
+                className="h-24 w-24 rounded-full flex-shrink-0"
+              />
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-5">
               Providing compassionate, comprehensive dental care to Weatherford, TX and Parker County families since 1991.
@@ -41,7 +47,7 @@ export default function SiteFooter() {
                 { label: 'General Dentistry', href: '/services/general-dentistry' },
                 { label: 'Cosmetic Dentistry', href: '/services/cosmetic-dentistry' },
                 { label: 'Pediatric Dentistry', href: '/services/pediatric-dentistry' },
-                { label: 'Geriatric Dentistry', href: '/services/geriatric-dentistry' },
+                { label: 'Senior Dental Care', href: '/services/geriatric-dentistry' },
                 { label: 'Special Needs Dentistry', href: '/services/special-needs-dentistry' },
               ].map((item) => (
                 <li key={item.href}>
@@ -117,7 +123,17 @@ export default function SiteFooter() {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-6">
             <div className="flex gap-4 items-center">
-              <p>&copy; {new Date().getFullYear()} F. Lee McLemore, DDS. All rights reserved.</p>
+              <p>
+                &copy; {new Date().getFullYear()} F. Lee McLemore, DDS. All rights reserved. Powered by{' '}
+                <a
+                  href="https://txpages.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  TXPAGES
+                </a>
+              </p>
             </div>
             <div className="flex gap-4 items-center">
               <a
@@ -142,18 +158,6 @@ export default function SiteFooter() {
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-white/40">
             <p>Weatherford, TX Family &amp; Cosmetic Dentistry</p>
-            <span className="hidden sm:inline">•</span>
-            <p>
-              Powered by{' '}
-              <a
-                href="https://www.txpages.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/50 hover:text-white/70 transition-colors"
-              >
-                TXPAGES
-              </a>
-            </p>
           </div>
         </div>
       </div>

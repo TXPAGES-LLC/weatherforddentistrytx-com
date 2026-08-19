@@ -76,21 +76,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${merriweather.variable} bg-background`}>
       <head>
-        {/* Preconnect to external image host used in LCP hero */}
-        <link rel="preconnect" href="https://weatherforddentistrytx.com" />
-        <link rel="dns-prefetch" href="https://weatherforddentistrytx.com" />
         {/* Preconnect to Google Fonts CDN (loaded by next/font but benefits from early hint) */}
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* Preload LCP hero image to reduce Largest Contentful Paint time */}
-        <link
-          rel="preload"
-          as="image"
-          href="https://weatherforddentistrytx.com/wp-content/uploads/2023/12/tooth.png"
-          fetchPriority="high"
-        />
+        {/* Preload LCP hero image (self-hosted logo used in the hero trust card) */}
+        <link rel="preload" as="image" href="/gbp-logo.png" fetchPriority="high" />
       </head>
-      {/* pb-20 reserves space for the fixed mobile CTA bar + safe-area on small screens, preventing CLS */}
-      <body className="font-sans antialiased pb-20 md:pb-0">
+      {/* Bottom padding for the fixed mobile CTA bar (incl. safe-area) is applied in globals.css,
+          not here, so the safe-area-aware value isn't overridden by a higher-specificity class. */}
+      <body className="font-sans antialiased">
         {/* GA4 — loads after page is interactive, does not block render */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

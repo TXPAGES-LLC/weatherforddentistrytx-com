@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ServicePageTemplate from '@/components/service-page-template'
+import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/structured-data'
 import { SITE_URL } from '@/lib/site-config'
 
 export const metadata: Metadata = {
@@ -20,12 +21,31 @@ const relatedServices = [
   { label: 'General Dentistry', href: '/services/general-dentistry' },
   { label: 'Cosmetic Dentistry', href: '/services/cosmetic-dentistry' },
   { label: 'Pediatric Dentistry', href: '/services/pediatric-dentistry' },
-  { label: 'Geriatric Dentistry', href: '/services/geriatric-dentistry' },
+  { label: 'Senior Dental Care', href: '/services/geriatric-dentistry' },
 ]
 
 export default function SpecialNeedsDentistryPage() {
   return (
-    <ServicePageTemplate
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Services', url: `${SITE_URL}/services/special-needs-dentistry` },
+          { name: 'Special Needs Dentistry', url: `${SITE_URL}/services/special-needs-dentistry` },
+        ]}
+      />
+      <ServiceJsonLd
+        name="Special Needs Dentistry"
+        description="Adapted dental care for patients with physical, cognitive, or medical conditions in Weatherford, TX."
+        url={`${SITE_URL}/services/special-needs-dentistry`}
+      />
+      <ServicePageTemplate
+      heroImage={{
+        src: '/special-needs-dental-care-812307.jpg',
+        alt: 'Child receiving gentle special needs dental care in a calming Weatherford, TX dental office',
+        width: 1200,
+        height: 900,
+      }}
       title="Special Needs Dentistry"
       headline="Special Needs Dentistry in Weatherford, TX"
       metaDescription="Adapted, compassionate dental care for patients with special needs in Weatherford, TX."
@@ -92,6 +112,7 @@ export default function SpecialNeedsDentistryPage() {
             'Call our office ahead of your appointment. We are happy to walk through the visit in advance, discuss any concerns, and share strategies that have worked for other patients in similar situations.',
         },
       ]}
-    />
+      />
+    </>
   )
 }

@@ -1,18 +1,19 @@
 import type { Metadata } from 'next'
 import ServicePageTemplate from '@/components/service-page-template'
+import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/structured-data'
 import { SITE_URL } from '@/lib/site-config'
 
 export const metadata: Metadata = {
-  title: 'Geriatric Dentistry in Weatherford TX | F. Lee McLemore, DDS',
+  title: 'Senior Dental Care in Weatherford TX | F. Lee McLemore, DDS',
   description:
-    'Specialized dental care for older adults in Weatherford, TX. Dentures, implants, dry mouth treatment & more from Dr. F. Lee McLemore DDS. Call (817) 594-8665.',
+    'Specialized senior dental care and geriatric dentistry for older adults in Weatherford, TX. Dentures, implants, dry mouth treatment & more from Dr. F. Lee McLemore DDS. Call (817) 594-8665.',
   alternates: { canonical: `${SITE_URL}/services/geriatric-dentistry` },
   openGraph: {
-    title: 'Geriatric Dentistry in Weatherford TX | F. Lee McLemore, DDS',
+    title: 'Senior Dental Care in Weatherford TX | F. Lee McLemore, DDS',
     description: 'Specialized dental care for older adults in Weatherford, TX. Dentures, implants & dry mouth treatment from Dr. McLemore.',
     type: 'website',
     url: `${SITE_URL}/services/geriatric-dentistry`,
-    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Geriatric Dentistry — F. Lee McLemore, DDS, Weatherford TX' }],
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Senior Dental Care — F. Lee McLemore, DDS, Weatherford TX' }],
   },
 }
 
@@ -25,11 +26,24 @@ const relatedServices = [
 
 export default function GeriatricDentistryPage() {
   return (
-    <ServicePageTemplate
-      title="Geriatric Dentistry"
-      headline="Geriatric Dentistry in Weatherford, TX"
-      metaDescription="Compassionate dental care for older adults in Weatherford, TX."
-      heroText="Dental needs change as we age. Dr. F. Lee McLemore offers specialized geriatric dentistry in Weatherford, TX, addressing the unique oral health challenges that come with aging — with the patience, expertise, and compassion older patients deserve."
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Services', url: `${SITE_URL}/services/geriatric-dentistry` },
+          { name: 'Senior Dental Care', url: `${SITE_URL}/services/geriatric-dentistry` },
+        ]}
+      />
+      <ServiceJsonLd
+        name="Senior Dental Care"
+        description="Specialized dental care for older adults in Weatherford, TX. Dentures, implants & dry mouth treatment from Dr. McLemore."
+        url={`${SITE_URL}/services/geriatric-dentistry`}
+      />
+      <ServicePageTemplate
+      title="Senior Dental Care"
+      headline="Senior Dental Care in Weatherford, TX"
+      metaDescription="Compassionate senior dental care for older adults in Weatherford, TX."
+      heroText="Dental needs change as we age. Dr. F. Lee McLemore offers specialized senior dental care (geriatric dentistry) in Weatherford, TX, addressing the unique oral health challenges that come with aging — with the patience, expertise, and compassion older patients deserve."
       services={[
         {
           title: 'Complete & Partial Dentures',
@@ -87,6 +101,7 @@ export default function GeriatricDentistryPage() {
             'Many common medications cause dry mouth, which significantly increases cavity risk. Some blood thinners and other drugs also affect dental treatment planning. Always share your full medication list with our team.',
         },
       ]}
-    />
+      />
+    </>
   )
 }

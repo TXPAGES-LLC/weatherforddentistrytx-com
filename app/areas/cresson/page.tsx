@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import CressonPage from '@/components/areas/cresson-page'
 import { SITE_URL } from '@/lib/site-config'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist Serving Cresson TX | F. Lee McLemore, DDS — Weatherford',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <CressonPage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Cresson', url: `${SITE_URL}/areas/cresson` },
+        ]}
+      />
+      <CressonPage />
+    </>
+  )
 }

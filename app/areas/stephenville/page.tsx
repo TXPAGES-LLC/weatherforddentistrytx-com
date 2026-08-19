@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/site-config'
 import StephenvillePage from '@/components/areas/stephenville-page'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist Near Stephenville TX | F. Lee McLemore, DDS — Weatherford',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <StephenvillePage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Stephenville', url: `${SITE_URL}/areas/stephenville` },
+        ]}
+      />
+      <StephenvillePage />
+    </>
+  )
 }

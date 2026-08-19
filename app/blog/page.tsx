@@ -6,6 +6,7 @@ import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
 import BlogFilter from '@/components/blog-filter'
 import BlogPhoneCta from '@/components/blog-phone-cta'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 import { fetchBlogFeed, isPublished } from '@/lib/blog/source'
 
 export const metadata: Metadata = {
@@ -34,6 +35,15 @@ const HARDCODED_POSTS = [
     category: 'Pediatric Dentistry',
     date: 'May 2026',
     heroImageUrl: '/child-braces-orthodontic-exam.png',
+  },
+  {
+    slug: 'special-needs-dentistry-weatherford',
+    title: 'Finding a Special Needs Dentist in Weatherford, TX',
+    excerpt:
+      'Patients with physical, cognitive, or medical conditions deserve quality dental care. Learn how our adapted approach makes every patient feel welcome.',
+    category: 'Special Needs',
+    date: 'November 2024',
+    heroImageUrl: '/special-needs-dental-care-812307.jpg',
   },
 ]
 
@@ -70,6 +80,12 @@ export default async function BlogIndexPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Blog', url: `${SITE_URL}/blog` },
+        ]}
+      />
       <SiteHeader />
       <main id="main-content">
         {/* Hero */}

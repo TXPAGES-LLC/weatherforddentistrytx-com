@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import MineralWellsPage from '@/components/areas/mineral-wells-page'
 import { SITE_URL } from '@/lib/site-config'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist Serving Mineral Wells TX | F. Lee McLemore, DDS — Weatherford',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <MineralWellsPage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Mineral Wells', url: `${SITE_URL}/areas/mineral-wells` },
+        ]}
+      />
+      <MineralWellsPage />
+    </>
+  )
 }

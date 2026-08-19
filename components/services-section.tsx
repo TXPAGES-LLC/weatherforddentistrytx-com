@@ -29,10 +29,10 @@ const services = [
     keywords: ['children', 'kids', 'sealants', 'fluoride'],
   },
   {
-    title: 'Geriatric Dentistry',
+    title: 'Senior Dental Care',
     href: '/services/geriatric-dentistry',
     description:
-      'Specialized dental care tailored to older adults, including dentures, implants, and sensitivity treatment.',
+      'Specialized geriatric dentistry tailored to older adults, including dentures, implants, and sensitivity treatment.',
     icon: ElderIcon,
     keywords: ['dentures', 'implants', 'seniors', 'tooth loss'],
   },

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import GranburyPage from '@/components/areas/granbury-page'
 import { SITE_URL } from '@/lib/site-config'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist Serving Granbury TX | F. Lee McLemore, DDS — Weatherford',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <GranburyPage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Granbury', url: `${SITE_URL}/areas/granbury` },
+        ]}
+      />
+      <GranburyPage />
+    </>
+  )
 }

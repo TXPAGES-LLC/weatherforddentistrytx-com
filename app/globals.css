@@ -178,10 +178,11 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  /* Reserve space for the sticky mobile CTA bar */
+  /* Reserve space for the sticky mobile CTA bar (icon + label + py-3 ≈ 64px) plus safe-area,
+     so fixed-position content never overlaps the last bit of page content on notched phones. */
   @media (max-width: 767px) {
     body {
-      padding-bottom: calc(56px + env(safe-area-inset-bottom));
+      padding-bottom: calc(64px + env(safe-area-inset-bottom));
     }
   }
 }

@@ -82,13 +82,13 @@ export default function HeroSection() {
             <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-xl">
               <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-5">
                 <img
-                  src="https://weatherforddentistrytx.com/wp-content/uploads/2023/12/tooth.png"
-                  alt="Dental care icon representing quality dentistry"
+                  src="/gbp-logo.png"
+                  alt="F. Lee McLemore, DDS logo — Family and Cosmetic Dentistry in Weatherford, TX"
                   width="56"
                   height="56"
                   loading="eager"
                   fetchPriority="high"
-                  className="w-12 h-12 sm:w-14 sm:h-14 object-contain flex-shrink-0"
+                  className="w-12 h-12 sm:w-14 sm:h-14 object-contain flex-shrink-0 rounded-full"
                 />
                 <div>
                   <h2 className="font-bold text-lg sm:text-xl text-foreground leading-tight">100% Satisfaction</h2>

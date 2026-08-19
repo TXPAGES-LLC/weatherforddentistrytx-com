@@ -57,15 +57,6 @@ export default function TrustSection() {
           </div>
 
           <div className="flex flex-col gap-4">
-            <img
-              src="https://weatherforddentistrytx.com/wp-content/uploads/2023/12/dental-care.png"
-              alt="Dental care at F. Lee McLemore DDS in Weatherford TX — family and cosmetic dentistry"
-              width="480"
-              height="320"
-              loading="lazy"
-              className="w-full rounded-2xl object-cover border border-border"
-            />
-
             {/* Trust badges row */}
             <div className="flex flex-col gap-3">
               {/* Google reviews CTA */}

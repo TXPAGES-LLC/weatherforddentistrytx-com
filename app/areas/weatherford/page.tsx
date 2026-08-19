@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import WeatherfordPage from '@/components/areas/weatherford-page'
 import { SITE_URL } from '@/lib/site-config'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist for Weatherford TX Residents | F. Lee McLemore, DDS',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <WeatherfordPage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Weatherford', url: `${SITE_URL}/areas/weatherford` },
+        ]}
+      />
+      <WeatherfordPage />
+    </>
+  )
 }

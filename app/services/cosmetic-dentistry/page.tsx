@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ServicePageTemplate from '@/components/service-page-template'
+import { BreadcrumbJsonLd, ServiceJsonLd } from '@/components/structured-data'
 import { SITE_URL } from '@/lib/site-config'
 
 export const metadata: Metadata = {
@@ -19,13 +20,32 @@ export const metadata: Metadata = {
 const relatedServices = [
   { label: 'General Dentistry', href: '/services/general-dentistry' },
   { label: 'Pediatric Dentistry', href: '/services/pediatric-dentistry' },
-  { label: 'Geriatric Dentistry', href: '/services/geriatric-dentistry' },
+  { label: 'Senior Dental Care', href: '/services/geriatric-dentistry' },
   { label: 'Special Needs Dentistry', href: '/services/special-needs-dentistry' },
 ]
 
 export default function CosmeticDentistryPage() {
   return (
-    <ServicePageTemplate
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Services', url: `${SITE_URL}/services/cosmetic-dentistry` },
+          { name: 'Cosmetic Dentistry', url: `${SITE_URL}/services/cosmetic-dentistry` },
+        ]}
+      />
+      <ServiceJsonLd
+        name="Cosmetic Dentistry"
+        description="Teeth whitening, veneers, bonding & smile makeovers from Dr. F. Lee McLemore, DDS in Weatherford, TX."
+        url={`${SITE_URL}/services/cosmetic-dentistry`}
+      />
+      <ServicePageTemplate
+      heroImage={{
+        src: '/cosmetic-dentistry.jpg',
+        alt: 'Patient smiling during a cosmetic dentistry exam with Dr. F. Lee McLemore, DDS in Weatherford, TX',
+        width: 1200,
+        height: 900,
+      }}
       title="Cosmetic Dentistry"
       headline="Cosmetic Dentistry in Weatherford, TX"
       metaDescription="Smile makeovers and cosmetic dental treatments in Weatherford, TX."
@@ -92,6 +112,7 @@ export default function CosmeticDentistryPage() {
             'Most purely cosmetic procedures are not covered by dental insurance. However, some treatments like crowns or bonding may be partially covered if they also serve a restorative function. Our team can help you understand your coverage.',
         },
       ]}
-    />
+      />
+    </>
   )
 }

@@ -11,7 +11,7 @@ const services = [
   { label: 'General Dentistry', href: '/services/general-dentistry' },
   { label: 'Cosmetic Dentistry', href: '/services/cosmetic-dentistry' },
   { label: 'Pediatric Dentistry', href: '/services/pediatric-dentistry' },
-  { label: 'Geriatric Dentistry', href: '/services/geriatric-dentistry' },
+  { label: 'Senior Dental Care', href: '/services/geriatric-dentistry' },
   { label: 'Special Needs Dentistry', href: '/services/special-needs-dentistry' },
 ]
 
@@ -65,9 +65,18 @@ export default function SiteHeader() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex flex-col leading-tight" aria-label="F. Lee McLemore DDS - Home">
-              <span className="font-bold text-lg text-foreground leading-tight">F. Lee McLemore, DDS</span>
-              <span className="text-xs" style={{ color: '#2ec4b6' }}>Family &amp; Cosmetic Dentistry</span>
+            <Link href="/" className="flex items-center gap-2.5" aria-label="F. Lee McLemore DDS - Home">
+              <img
+                src="/gbp-logo.png"
+                alt="F. Lee McLemore, DDS logo — Family and Cosmetic Dentistry in Weatherford, TX"
+                width={48}
+                height={48}
+                className="h-10 w-10 sm:h-12 sm:w-12 rounded-full flex-shrink-0"
+              />
+              <span className="flex flex-col leading-tight">
+                <span className="font-bold text-lg text-foreground leading-tight">F. Lee McLemore, DDS</span>
+                <span className="text-xs" style={{ color: '#2ec4b6' }}>Family &amp; Cosmetic Dentistry</span>
+              </span>
             </Link>
 
             {/* Desktop Nav */}

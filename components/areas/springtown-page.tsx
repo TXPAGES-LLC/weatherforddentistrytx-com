@@ -5,7 +5,8 @@ import SiteHeader from '@/components/site-header'
 import SiteFooter from '@/components/site-footer'
 import MobileCta from '@/components/mobile-cta'
 
-const GBP_EMBED = 'https://maps.google.com/maps?output=embed&q=F.+Lee+McLemore+DDS&cid=2341254151701000531'
+const GBP_EMBED =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4015.356524858435!2d-97.7881532!3d32.749885299999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8651fe0106ab6b67%3A0x207dce3f190bf153!2sF%20Lee%20McLemore%20DDS!5e1!3m2!1sen!2sus!4v1787162096788!5m2!1sen!2sus'
 const GBP_LINK = 'https://maps.google.com/?cid=2341254151701000531'
 
 const PHONE = '(817) 594-8665'
@@ -33,10 +34,10 @@ const services = [
       'Kids from Springtown ISD get gentle, patient-centered dental care. Our team makes visits fun and educational to set children up for a lifetime of healthy smiles.',
   },
   {
-    label: 'Geriatric Dentistry',
+    label: 'Senior Dental Care',
     href: '/services/geriatric-dentistry',
     description:
-      'Springtown seniors trust us for denture services, crown repairs, and compassionate treatment for age-related dental challenges like dry mouth and root decay.',
+      'Springtown seniors trust our geriatric dentistry team for denture services, crown repairs, and compassionate treatment for age-related dental challenges like dry mouth and root decay.',
   },
   {
     label: 'Special Needs Dentistry',
@@ -229,7 +230,7 @@ export default function SpringtownPage() {
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
                 title="F. Lee McLemore DDS — 610 Eureka St, Weatherford TX (serving Springtown)"
                 aria-label="Google Map showing F. Lee McLemore DDS office location"
               />

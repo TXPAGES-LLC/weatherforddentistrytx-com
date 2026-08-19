@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import AledoPage from '@/components/areas/aledo-page'
 import { SITE_URL } from '@/lib/site-config'
+import { BreadcrumbJsonLd } from '@/components/structured-data'
 
 export const metadata: Metadata = {
   title: 'Dentist Serving Aledo TX | F. Lee McLemore, DDS — Weatherford',
@@ -17,5 +18,16 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  return <AledoPage />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: `${SITE_URL}/` },
+          { name: 'Areas Served', url: `${SITE_URL}/` },
+          { name: 'Aledo', url: `${SITE_URL}/areas/aledo` },
+        ]}
+      />
+      <AledoPage />
+    </>
+  )
 }

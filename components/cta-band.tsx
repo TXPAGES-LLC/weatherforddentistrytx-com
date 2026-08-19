@@ -28,7 +28,7 @@ export default function CtaBand() {
             {PHONE}
           </a>
           <a
-            href="https://www.google.com/maps/search/F.+Lee+McLemore+DDS+Weatherford+TX"
+            href="https://maps.google.com/?cid=2341254151701000531"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg font-semibold text-base bg-white/20 text-white hover:bg-white/30 transition-colors border border-white/30"

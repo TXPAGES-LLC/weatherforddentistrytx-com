@@ -27,8 +27,11 @@ jobs:
 
       - name: Clean install dependencies
         run: |
-          rm -rf node_modules package-lock.json
-          npm install --include=optional --legacy-peer-deps
+          if [ -f package-lock.json ]; then
+            npm ci --include=optional --no-audit --no-fund
+          else
+            npm install --include=optional --no-audit --no-fund
+          fi
 
       - name: Azure Login
         uses: azure/login@v2
@@ -58,3 +61,8 @@ jobs:
           ACR_USERNAME=$(az acr credential show --name ${{ env.REGISTRY_NAME }} --query username -o tsv)
           ACR_PASSWORD=$(az acr credential show --name ${{ env.REGISTRY_NAME }} --query 'passwords[0].value' -o tsv)
           az containerapp up             --name fleemclemoredds-69c7feae             --resource-group Websites             --environment websites-prod             --image ${{ env.LOGIN_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}             --registry-server ${{ env.LOGIN_SERVER }}             --registry-username $ACR_USERNAME             --registry-password $ACR_PASSWORD             --target-port 3000             --ingress external
+          # up has no scale/size flags; pin cold-by-default and no scale-out.
+          # Half a core because the cache proxy only sends misses here: the app
+          # is asleep most of the day, and a bigger core halves the cold boot
+          # a visitor waits on.
+          az containerapp update             --name fleemclemoredds-69c7feae             --resource-group Websites             --min-replicas 0             --max-replicas 1             --cpu 0.5             --memory 1.0Gi
