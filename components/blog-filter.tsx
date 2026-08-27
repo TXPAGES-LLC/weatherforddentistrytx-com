@@ -12,7 +12,6 @@ interface PostCard {
   heroImageUrl?: string
   author?: string
   readingTimeMinutes?: number
-  isFeedPost: boolean
 }
 
 export default function BlogFilter({ posts }: { posts: PostCard[] }) {

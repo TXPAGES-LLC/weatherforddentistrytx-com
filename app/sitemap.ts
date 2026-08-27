@@ -37,14 +37,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/areas/cresson`,                       lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/areas/granbury`,                      lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/areas/stephenville`,                  lastModified: new Date('2026-06-01'), changeFrequency: 'monthly', priority: 0.7 },
-    // Blog posts with real content (hardcoded)
-    { url: `${BASE}/blog/child-needs-braces-stephenville`,      lastModified: new Date('2026-05-01'), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/blog/how-often-should-you-visit-the-dentist`, lastModified: new Date('2025-04-01'), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/blog/pediatric-dentistry-weatherford-tx`,   lastModified: new Date('2025-03-01'), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/blog/cosmetic-dentistry-options-weatherford`, lastModified: new Date('2025-02-01'), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/blog/gum-disease-signs-weatherford`,        lastModified: new Date('2025-01-01'), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/blog/dental-care-seniors-weatherford-tx`,   lastModified: new Date('2024-12-01'), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${BASE}/blog/special-needs-dentistry-weatherford`, lastModified: new Date('2024-11-01'), changeFrequency: 'monthly', priority: 0.6 },
+    // Blog post URLs are sourced entirely from the live feed below (feedBlogPages) —
+    // nothing is hardcoded, so new posts appear here automatically on next build.
   ]
 
   const feedBlogPages: MetadataRoute.Sitemap = feedSlugs.map((p) => ({

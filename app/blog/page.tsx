@@ -7,7 +7,7 @@ import MobileCta from '@/components/mobile-cta'
 import BlogFilter from '@/components/blog-filter'
 import BlogPhoneCta from '@/components/blog-phone-cta'
 import { BreadcrumbJsonLd } from '@/components/structured-data'
-import { fetchBlogFeed, isPublished } from '@/lib/blog/source'
+import { BLOG_DATA_URL, isPublished, type FeedData } from '@/lib/blog/source'
 
 export const metadata: Metadata = {
   title: 'Dental Health Blog | F. Lee McLemore, DDS — Weatherford TX',
@@ -23,36 +23,14 @@ export const metadata: Metadata = {
   },
 }
 
-// Only hardcoded posts that have a real hero image are shown on the index.
-// Posts without images are kept in the slug page's data map for direct URL access
-// but are not surfaced in the listing to avoid broken/placeholder card visuals.
-const HARDCODED_POSTS = [
-  {
-    slug: 'child-needs-braces-stephenville',
-    title: 'Is It Time for Braces? Signs Your Child Needs Orthodontic Care',
-    excerpt:
-      'Wondering if your child might benefit from braces? Learn the warning signs of bite problems, crowding, and misalignment that Dr. McLemore looks for during orthodontic screening.',
-    category: 'Pediatric Dentistry',
-    date: 'May 2026',
-    heroImageUrl: '/child-braces-orthodontic-exam.png',
-  },
-  {
-    slug: 'special-needs-dentistry-weatherford',
-    title: 'Finding a Special Needs Dentist in Weatherford, TX',
-    excerpt:
-      'Patients with physical, cognitive, or medical conditions deserve quality dental care. Learn how our adapted approach makes every patient feel welcome.',
-    category: 'Special Needs',
-    date: 'November 2024',
-    heroImageUrl: '/special-needs-dental-care-812307.jpg',
-  },
-]
-
 export default async function BlogIndexPage() {
-  const feed = await fetchBlogFeed()
+  // All post data is fetched at runtime — nothing is hardcoded here.
+  const res = await fetch(BLOG_DATA_URL, { cache: 'no-store' })
+  const feed: FeedData = res.ok ? await res.json() : { posts: [] }
 
-  // Map feed posts to the unified card shape, filter future-dated
-  const feedPosts = feed.posts
+  const posts = feed.posts
     .filter(isPublished)
+    .sort((a, b) => new Date(b.publishAt).getTime() - new Date(a.publishAt).getTime())
     .map((p) => ({
       slug: p.slug,
       title: p.title,
@@ -62,21 +40,7 @@ export default async function BlogIndexPage() {
       heroImageUrl: p.heroImageUrl,
       author: p.author,
       readingTimeMinutes: p.readingTimeMinutes,
-      isFeedPost: true as const,
     }))
-
-  // Merge: feed posts take precedence over hardcoded by slug
-  const feedSlugs = new Set(feedPosts.map((p) => p.slug))
-  const hardcodedFiltered = HARDCODED_POSTS.filter((p) => !feedSlugs.has(p.slug)).map((p) => ({
-    ...p,
-    author: undefined as string | undefined,
-    readingTimeMinutes: undefined as number | undefined,
-    isFeedPost: false as const,
-  }))
-
-  const allPosts = [...feedPosts, ...hardcodedFiltered].sort((a, b) => {
-    return new Date(b.date).getTime() - new Date(a.date).getTime()
-  })
 
   return (
     <>
@@ -107,7 +71,7 @@ export default async function BlogIndexPage() {
           </div>
         </section>
 
-        <BlogFilter posts={allPosts} />
+        <BlogFilter posts={posts} />
 
         {/* CTA */}
         <section style={{ backgroundColor: '#3b82f6' }} className="py-12" aria-label="Schedule an appointment">
